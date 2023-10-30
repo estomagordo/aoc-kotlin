@@ -3,7 +3,7 @@ package aockt.y2015
 import io.github.jadarma.aockt.test.AdventDay
 import io.github.jadarma.aockt.test.AdventSpec
 
-@AdventDay(2015, 1, "N/A")
+@AdventDay(2015, 1, "Not Quite Lisp")
 class Y2015D01Test : AdventSpec<Y2015D01>({
 
     partOne {
