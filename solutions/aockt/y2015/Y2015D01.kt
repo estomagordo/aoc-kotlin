@@ -4,7 +4,7 @@ import io.github.jadarma.aockt.core.Solution
 
 object Y2015D01 : Solution {
 
-    override fun partOne(input: String) : Int {
+    override fun partOne(input: String): Int {
         var floor = 0
 
         input.forEach {
@@ -18,7 +18,7 @@ object Y2015D01 : Solution {
         return floor
     }
 
-    override fun partTwo(input: String) : Int {
+    override fun partTwo(input: String): Int {
         var floor = 0
         var step = 0
 
