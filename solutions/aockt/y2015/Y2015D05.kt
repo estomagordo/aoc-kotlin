@@ -11,7 +11,7 @@ object Y2015D05 : Solution {
 
         val hasAtLeastThreeVowels = s.count { vowels.contains(it) } > 2
         val hasDouble = (1..<s.length).map { s[it] == s[it - 1] }.any { it }
-        val hasBadPair = (1..<s.length).map { badPairs.contains(s.slice(it - 1..it)) }.any { it }
+        val hasBadPair = badPairs.any { s.contains(it) }
 
         return hasAtLeastThreeVowels && hasDouble && !hasBadPair
     }
