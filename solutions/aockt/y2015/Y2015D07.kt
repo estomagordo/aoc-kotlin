@@ -4,9 +4,8 @@ import io.github.jadarma.aockt.core.Solution
 
 object Y2015D07 : Solution {
 
-    override fun partOne(input: String): Int {
+    private fun runInstructions(instructions: List<List<String>>, signals: Map<String, Int>): MutableMap<String, Int> {
         val maxval = 65535
-        val instructions = input.split('\n').map { it -> it.split(" ") }
         val executedInstructions = mutableSetOf<Int>()
         val signals = mutableMapOf<String, Int>()
 
@@ -33,7 +32,10 @@ object Y2015D07 : Solution {
                     } else if (signals.containsKey(a)) {
                         val aval = signals.getOrDefault(a, 0)
 
-                        if (instruction[2].all { it.isDigit() }) {
+                        if (instruction.size == 3) {
+                            signals[target] = aval
+                            executed = true
+                        } else if (instruction[2].all { it.isDigit() }) {
                             val steps = instruction[2].toInt()
 
                             if (instruction[1] == "LSHIFT") {
@@ -63,10 +65,26 @@ object Y2015D07 : Solution {
             }
         }
 
+        return signals
+    }
+
+    override fun partOne(input: String): Int {
+        val instructions = input.split('\n').map { it -> it.split(" ") }
+        var signals = mutableMapOf<String, Int>()
+
+        signals = runInstructions(instructions, signals)
+
         return signals.getOrDefault("a", -1)
     }
 
     override fun partTwo(input: String): Int {
-        return 1
+        val instructions = input.split('\n').map { it -> it.split(" ") }
+        var signals = mutableMapOf<String, Int>()
+
+        signals = runInstructions(instructions, signals)
+        signals = mutableMapOf("b" to signals.getOrDefault("a", -1))
+        signals = runInstructions(instructions, signals)
+
+        return signals.getOrDefault("a", -1)
     }
 }
