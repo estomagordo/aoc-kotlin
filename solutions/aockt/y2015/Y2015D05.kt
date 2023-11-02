@@ -18,16 +18,14 @@ object Y2015D05 : Solution {
 
     private fun isNiceTwo(s: String): Boolean {
         val pairLocations = mutableMapOf<String, MutableList<Int>>()
-        s.forEachIndexed { i, e ->
-            if (i > 0) {
-                val pair = s.slice(i-1..i)
+        (1..<s.length).map {
+            val pair = s.slice(it - 1..it)
 
-                if (!pairLocations.containsKey(pair)) {
-                    pairLocations[pair] = mutableListOf()
-                }
-
-                pairLocations[pair]?.add(i-1)
+            if (!pairLocations.containsKey(pair)) {
+                pairLocations[pair] = mutableListOf()
             }
+
+            pairLocations[pair]?.add(it - 1)
         }
 
         val hasRepeatPairWithoutOverlap = pairLocations.values.any {
