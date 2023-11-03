@@ -4,10 +4,8 @@ import io.github.jadarma.aockt.core.Solution
 
 object Y2015D07 : Solution {
 
-    private fun runInstructions(instructions: List<List<String>>, signals: Map<String, Int>): MutableMap<String, Int> {
-        val maxval = 65535
+    private fun runInstructions(instructions: List<List<String>>, signals: MutableMap<String, Int>): MutableMap<String, Int> {
         val executedInstructions = mutableSetOf<Int>()
-        val signals = mutableMapOf<String, Int>()
 
         while (executedInstructions.count() < instructions.count()) {
             instructions.forEachIndexed { i, instruction ->
@@ -24,9 +22,19 @@ object Y2015D07 : Solution {
                         val b = instruction[1]
 
                         if (signals.containsKey(b)) {
+                            var bvalBinary = signals.getOrDefault(b, 0)
+                                .toString(radix = 2)
                             val bval = signals.getOrDefault(b, 0)
+                            bvalBinary = "0".repeat(16 - bvalBinary.length) + bvalBinary
 
-                            signals[target] = maxval - bval
+                            val bvalInverse = bvalBinary
+                                .replace('0', '2')
+                                .replace('1', '0')
+                                .replace('2', '1')
+                                .toInt(radix = 2)
+                            val btotes = bval + bvalInverse
+                            signals[target] = bvalInverse and 65535
+
                             executed = true
                         }
                     } else if (signals.containsKey(a)) {
