@@ -1,74 +1,59 @@
 package aockt.y2015
 
 import io.github.jadarma.aockt.core.Solution
+import org.jetbrains.annotations.Nullable
+import kotlin.math.sign
 
 object Y2015D07 : Solution {
 
     private fun runInstructions(instructions: List<List<String>>, signals: MutableMap<String, Int>): MutableMap<String, Int> {
-        val executedInstructions = mutableSetOf<Int>()
+        fun evaluate(value: String): Int? {
+            if (value.all { it.isDigit() }) {
+                return value.toInt()
+            }
 
-        while (executedInstructions.count() < instructions.count()) {
-            instructions.forEachIndexed { i, instruction ->
+            if (signals.containsKey(value)) {
+                return signals[value]
+            }
+
+            return null
+        }
+
+        while (!signals.containsKey("a")) {
+            instructions.forEach { instruction ->
+
                 val target = instruction.last()
-                var executed = false
+                val a = instruction.first()
 
-                if (!executedInstructions.contains(i)) {
-                    val a = instruction[0]
+                when {
+                    instruction.size == 3 -> {
+                        val evaluation = evaluate(a)
 
-                    if (a.all { it.isDigit() }) {
-                        signals[target] = instruction[0].toInt()
-                        executed = true
-                    } else if (a == "NOT") {
-                        val b = instruction[1]
-
-                        if (signals.containsKey(b)) {
-                            var bvalBinary = signals.getOrDefault(b, 0)
-                                .toString(radix = 2)
-                            val bval = signals.getOrDefault(b, 0)
-                            bvalBinary = "0".repeat(16 - bvalBinary.length) + bvalBinary
-
-                            val bvalInverse = bvalBinary
-                                .replace('0', '2')
-                                .replace('1', '0')
-                                .replace('2', '1')
-                                .toInt(radix = 2)
-                            val btotes = bval + bvalInverse
-                            signals[target] = bvalInverse and 65535
-
-                            executed = true
-                        }
-                    } else if (signals.containsKey(a)) {
-                        val aval = signals.getOrDefault(a, 0)
-
-                        if (instruction.size == 3) {
-                            signals[target] = aval
-                            executed = true
-                        } else if (instruction[2].all { it.isDigit() }) {
-                            val steps = instruction[2].toInt()
-
-                            if (instruction[1] == "LSHIFT") {
-                                signals[target] = aval shl steps
-                            } else {
-                                signals[target] = aval shr steps
-                            }
-
-                            executed = true
-                        } else if (signals.containsKey(instruction[2])) {
-                            val bval = signals.getOrDefault(instruction[2], 0)
-
-                            if (instruction[1] == "AND") {
-                                signals[target] = aval and bval
-                            } else {
-                                signals[target] = aval or bval
-                            }
-
-                            executed = true
+                        if (evaluation != null) {
+                            signals[target] = evaluation
                         }
                     }
-                }
+                    instruction.size == 4 -> {
+                        val evaluation = evaluate(instruction[1])
 
-                if (executed) {
-                    executedInstructions.add(i)
+                        if (evaluation != null) {
+                            signals[target] = 65535 - evaluation
+                        }
+                    }
+                    else -> {
+                        val aVal = evaluate(a)
+                        val command = instruction[1]
+                        val bVal = evaluate(instruction[2])
+
+                        if (aVal != null && bVal != null) {
+                            signals[target] = when (command) {
+                                "RSHIFT" ->  aVal shr bVal
+                                "LSHIFT" ->  aVal shl bVal
+                                "AND" ->  aVal and bVal
+                                else -> aVal or bVal
+                            }
+                        }
+                    }
                 }
             }
         }
