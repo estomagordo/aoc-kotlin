@@ -1,8 +1,6 @@
 package aockt.y2015
 
 import io.github.jadarma.aockt.core.Solution
-import org.jetbrains.annotations.Nullable
-import kotlin.math.sign
 
 object Y2015D07 : Solution {
 
@@ -64,7 +62,7 @@ object Y2015D07 : Solution {
     }
 
     override fun partOne(input: String): Int {
-        val instructions = input.split('\n').map { it -> it.split(" ") }
+        val instructions = input.lines().map { it -> it.split(" ") }
         var signals = mutableMapOf<String, Int>()
 
         signals = runInstructions(instructions, signals)
@@ -73,7 +71,7 @@ object Y2015D07 : Solution {
     }
 
     override fun partTwo(input: String): Int {
-        val instructions = input.split('\n').map { it -> it.split(" ") }
+        val instructions = input.lines().map { it -> it.split(" ") }
         var signals = mutableMapOf<String, Int>()
 
         signals = runInstructions(instructions, signals)

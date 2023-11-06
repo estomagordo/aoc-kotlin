@@ -1,5 +1,6 @@
 package aockt.y2015
 
+import aockt.helpers.ints
 import io.github.jadarma.aockt.core.Solution
 
 object Y2015D06 : Solution {
@@ -15,11 +16,7 @@ object Y2015D06 : Solution {
         }
 
         instructions.forEach {
-            val numbers = Regex("-?[0-9]+")
-                .findAll(it)
-                .map(MatchResult::value)
-                .map(String::toInt)
-                .toList()
+            val numbers = it.ints()
 
             val parts = it.split(' ')
 
@@ -46,11 +43,7 @@ object Y2015D06 : Solution {
         }
 
         instructions.forEach {
-            val numbers = Regex("-?[0-9]+")
-                .findAll(it)
-                .map(MatchResult::value)
-                .map(String::toInt)
-                .toList()
+            val numbers = it.ints()
 
             val parts = it.split(' ')
 
