@@ -22,35 +22,37 @@ object Y2015D07 : Solution {
         while (!signals.containsKey("a")) {
             instructions.forEach { instruction ->
 
-                val target = instruction.last()
                 val a = instruction.first()
+                val target = instruction.last()
 
-                when {
-                    instruction.size == 3 -> {
-                        val evaluation = evaluate(a)
+                if (!signals.containsKey(target)) {
+                    when (instruction.size) {
+                        3 -> {
+                            val evaluation = evaluate(a)
 
-                        if (evaluation != null) {
-                            signals[target] = evaluation
+                            if (evaluation != null) {
+                                signals[target] = evaluation
+                            }
                         }
-                    }
-                    instruction.size == 4 -> {
-                        val evaluation = evaluate(instruction[1])
+                        4 -> {
+                            val evaluation = evaluate(instruction[1])
 
-                        if (evaluation != null) {
-                            signals[target] = 65535 - evaluation
+                            if (evaluation != null) {
+                                signals[target] = 65535 - evaluation
+                            }
                         }
-                    }
-                    else -> {
-                        val aVal = evaluate(a)
-                        val command = instruction[1]
-                        val bVal = evaluate(instruction[2])
+                        else -> {
+                            val aVal = evaluate(a)
+                            val command = instruction[1]
+                            val bVal = evaluate(instruction[2])
 
-                        if (aVal != null && bVal != null) {
-                            signals[target] = when (command) {
-                                "RSHIFT" ->  aVal shr bVal
-                                "LSHIFT" ->  aVal shl bVal
-                                "AND" ->  aVal and bVal
-                                else -> aVal or bVal
+                            if (aVal != null && bVal != null) {
+                                signals[target] = when (command) {
+                                    "RSHIFT" -> aVal shr bVal
+                                    "LSHIFT" -> aVal shl bVal
+                                    "AND" -> aVal and bVal
+                                    else -> aVal or bVal
+                                }
                             }
                         }
                     }
