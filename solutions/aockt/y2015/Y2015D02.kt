@@ -25,7 +25,7 @@ object Y2015D02 : Solution {
     private fun ribbon(sides: List<Int>): Int {
         val mid = sides.sum() - sides.min() - sides.max()
 
-        return 2 * (sides.min() + mid) + sides.reduce {acc, next -> acc * next}
+        return 2 * (sides.min() + mid) + sides.reduce { acc, next -> acc * next }
     }
 
     override fun partOne(input: String): Int {

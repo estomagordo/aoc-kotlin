@@ -11,3 +11,7 @@ fun String.ints(): List<Int> {
 fun String.lines(): List<String> {
     return this.split('\n')
 }
+
+fun Char.isHexadecimal(): Boolean {
+    return "0123456789abcdef".contains(this.lowercaseChar())
+}
