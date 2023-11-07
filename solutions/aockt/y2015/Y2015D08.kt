@@ -5,11 +5,12 @@ import aockt.helpers.lines
 import io.github.jadarma.aockt.core.Solution
 
 object Y2015D08 : Solution {
-    data class Escapes(val doubleQuotes: Int,
-                       val hexEscapes: Int,
-                       val backSlashes: Int,
-                       val tripleBackslashes: Int,
-                       val quadrupleBackslashes: Int
+    data class Escapes(
+        val doubleQuotes: Int,
+        val hexEscapes: Int,
+        val backSlashes: Int,
+        val tripleBackslashes: Int,
+        val quadrupleBackslashes: Int,
     )
 
     private fun countEscapes(s: String): Escapes {
@@ -26,18 +27,19 @@ object Y2015D08 : Solution {
         }
         val tripleBackslashes = (2..<s.length).count {
             s[it] == '\\' &&
-                    s[it - 1] == '\\' &&
-                    s[it - 2] == '\\'
+                s[it - 1] == '\\' &&
+                s[it - 2] == '\\'
         }
         val quadrupleBackslashes = (2..<s.length).count {
             s[it] == '\\' &&
-                    s[it - 1] == '\\' &&
-                    s[it - 2] == '\\' &&
-                    s[it - 3] == '\\'
+                s[it - 1] == '\\' &&
+                s[it - 2] == '\\' &&
+                s[it - 3] == '\\'
         }
 
         return Escapes(doubleQuotes, hexEscapes, backslashes, tripleBackslashes, quadrupleBackslashes)
     }
+
     private fun countDecodingDifference(s: String): Int {
         val occurrences = countEscapes(s)
 

@@ -47,7 +47,7 @@ object Y2015D09 : Solution {
         fun dfs(visited: List<String>) {
             if (visited.size == allCities.size) {
                 shortest = min(shortest, calcDistance(graph, visited))
-            } else{
+            } else {
                 allCities.forEach {
                     if (!visited.contains(it)) {
                         dfs(visited + listOf(it))
@@ -74,7 +74,7 @@ object Y2015D09 : Solution {
         fun dfs(visited: List<String>) {
             if (visited.size == allCities.size) {
                 longest = max(longest, calcDistance(graph, visited))
-            } else{
+            } else {
                 allCities.forEach {
                     if (!visited.contains(it)) {
                         dfs(visited + listOf(it))

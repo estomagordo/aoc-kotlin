@@ -4,7 +4,10 @@ import io.github.jadarma.aockt.core.Solution
 
 object Y2015D07 : Solution {
 
-    private fun runInstructions(instructions: List<List<String>>, signals: MutableMap<String, Int>): MutableMap<String, Int> {
+    private fun runInstructions(
+        instructions: List<List<String>>,
+        signals: MutableMap<String, Int>,
+    ): MutableMap<String, Int> {
         fun evaluate(value: String): Int? {
             if (value.all { it.isDigit() }) {
                 return value.toInt()
@@ -32,6 +35,7 @@ object Y2015D07 : Solution {
                                 signals[target] = evaluation
                             }
                         }
+
                         4 -> {
                             val evaluation = evaluate(instruction[1])
 
@@ -39,6 +43,7 @@ object Y2015D07 : Solution {
                                 signals[target] = 65535 - evaluation
                             }
                         }
+
                         else -> {
                             val aVal = evaluate(a)
                             val command = instruction[1]
