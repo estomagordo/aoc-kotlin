@@ -5,7 +5,7 @@ import aockt.helpers.lines
 import io.github.jadarma.aockt.core.Solution
 
 object Y2015D08 : Solution {
-    private fun countDoubleQoutesAndHexes(s: String): Pair<Int, Int> {
+    private fun countDoubleQuotesAndHexes(s: String): Pair<Int, Int> {
         val doubleQuotes = s.count { it == '"' }
         val hexEscapes = (3..<s.length).count {
             s[it].isHexadecimal() &&
@@ -16,13 +16,13 @@ object Y2015D08 : Solution {
         return Pair(doubleQuotes, hexEscapes)
     }
     private fun countDecodingDifference(s: String): Int {
-        val occurrences = countDoubleQoutesAndHexes(s)
+        val occurrences = countDoubleQuotesAndHexes(s)
 
         return occurrences.first + occurrences.second * 3
     }
 
     private fun countEncodingDifference(s: String): Int {
-        val occurrences = countDoubleQoutesAndHexes(s)
+        val occurrences = countDoubleQuotesAndHexes(s)
 
         return occurrences.first * 2 + occurrences.second
     }

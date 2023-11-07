@@ -11,6 +11,7 @@ class Y2015D08Test : AdventSpec<Y2015D08>({
         "\"abc\"" shouldOutput 2
         "\"aaa\"aaa\"" shouldOutput 3
         "\"\\x27\"" shouldOutput 5
+        "\"\"\n\"abc\"\n\"aaa\"aaa\"\n\"\\x27\"" shouldOutput 12
     }
 
     partTwo {
@@ -18,5 +19,6 @@ class Y2015D08Test : AdventSpec<Y2015D08>({
         "\"abc\"" shouldOutput 4
         "\"aaa\"aaa\"" shouldOutput 6
         "\"\\x27\"" shouldOutput 5
+        "\"\"\n\"abc\"\n\"aaa\"aaa\"\n\"\\x27\"" shouldOutput 19
     }
 })
