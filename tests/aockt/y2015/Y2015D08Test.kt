@@ -14,5 +14,9 @@ class Y2015D08Test : AdventSpec<Y2015D08>({
     }
 
     partTwo {
+        "\"\"" shouldOutput 4
+        "\"abc\"" shouldOutput 4
+        "\"aaa\"aaa\"" shouldOutput 6
+        "\"\\x27\"" shouldOutput 5
     }
 })
