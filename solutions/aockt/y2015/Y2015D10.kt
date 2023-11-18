@@ -1,9 +1,6 @@
 package aockt.y2015
 
-import aockt.helpers.lines
 import io.github.jadarma.aockt.core.Solution
-import kotlin.math.max
-import kotlin.math.min
 
 object Y2015D10 : Solution {
 
